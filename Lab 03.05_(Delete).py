@@ -1,4 +1,4 @@
-"""Lab 03.02 – Singly Linked List (Traversal and Insert Last)"""
+"""Lab 03.05 – Singly Linked List (Delete)"""
 class DataNode:
   def __init__(self, data=None):
     self.data = data
@@ -11,6 +11,7 @@ class SinglyLinkedList:
 
     def insert_last(self,data):
         add = DataNode(data)
+        self.count += 1
         if not self.head:
             self.head = add
             return
@@ -19,16 +20,16 @@ class SinglyLinkedList:
             while head.next:
               head = head.next
             head.next = add # chn node
-        self.count += 1
 
     def insert_front(self,data):
         add = DataNode(data)
+        self.count += 1
         if not self.head:
             self.head = add
+            return
         else:
             add.next = self.head
             self.head = add
-        self.count += 1
         
     def insert_before(self,node, data):
         add = DataNode(data)
@@ -57,15 +58,9 @@ class SinglyLinkedList:
             print(f"Cannot delete, "+data+" does not exist.")
             return
         if self.head.data == data:
-            if self.head.next:
-                self.head = self.head.next
-                self.count -= 1
-                return
-            else:
-                self.head = None
-                self.count -= 1
-                return
-        pointer = self.head
+            self.head = self.head.next
+            self.count -= 1
+            return
         while pointer and pointer.next:
             if pointer.next.data == data:
                 pointer.next = pointer.next.next
@@ -83,7 +78,7 @@ class SinglyLinkedList:
           while pointer and pointer.next:
             print(pointer.data, end=" -> ")
             pointer = pointer.next
-          if  pointer:
+          if pointer:
             print(pointer.data)
 
 def main():
