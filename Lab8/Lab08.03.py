@@ -18,20 +18,23 @@ class Item():
         return self.weight
 
     def get_cost(self):
+        return self.get_price()/self.get_weight()
+    
+    def get_detail(self):
         return self.get_name()+" -> "+str(self.get_weight())+" kg -> "+str(self.get_price())+" THB"
-
+    
 def knapsack(itemList,amount): #ให้ได้มูลค่ารวมมากที่สุด
         total_money = 0
         item = []
         for i in range(0,len(itemList)):
-            price_per_weight = itemList[i].get_price()/itemList[i].get_weight()
-            item.append([itemList[i],price_per_weight])
+            item.append([itemList[i],itemList[i].get_cost()])
+
         item.sort(key=lambda x:x[1],reverse=True)
         print(f"Knapsack Size: {amount} kg")
         print("===============================")
         for j in range(len(item)):
             if item[j][0].get_weight() <= amount:
-                print(item[j][0].get_cost())
+                print(item[j][0].get_detail())
                 total_money += item[j][0].get_price()
                 amount -= item[j][0].get_weight()
         print(f"Total: {int(total_money)} THB")
